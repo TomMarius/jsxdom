@@ -20,7 +20,7 @@ export function createElement<T extends HTMLElement>(
     elementName: string,
     props?: Optional<T> & IAdditionalProps<T>,
     ...children: Child[],
-): T {
+): T & IAdditionalProps<T> {
     const element = document.createElement(elementName) as T;
 
     for (const child of children) {
@@ -40,5 +40,5 @@ export function createElement<T extends HTMLElement>(
         }
     }
 
-    return element;
+    return element as T & IAdditionalProps<T>;
 }

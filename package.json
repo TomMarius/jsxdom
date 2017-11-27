@@ -1,0 +1,27 @@
+{
+  "name": "jsxdom",
+  "version": "3.0.1",
+  "description": "Use JSX to create HTMLElement instances. Strongly typed HTML templates.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomMarius/jsxdom.git"
+  },
+  "keywords": [
+    "jsx",
+    "dom",
+    "webcomponents",
+    "customelements",
+    "html5"
+  ],
+  "author": "Tom Marius",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TomMarius/jsxdom/issues"
+  },
+  "homepage": "https://github.com/TomMarius/jsxdom#readme"
+}

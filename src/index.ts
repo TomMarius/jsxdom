@@ -36,7 +36,7 @@ export function createElement<P extends keyof HTMLElementTagNameMap>(
     
     if (props != undefined) {
         for (const key of Object.keys(props)) {
-            if (element.hasOwnProperty(key)) {
+            if (key in element) {
                 element[key] = props[key];
             } else {
                 element.setAttribute(key, props[key]);

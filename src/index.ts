@@ -4,6 +4,8 @@ export interface IAdditionalProps<T> {
     ref?: (element: T) => void;
 }
 
+export type IndexSignature = { [key: string]: any; };
+
 export type Child = string | number | HTMLElement;
 
 declare global {
@@ -16,12 +18,12 @@ declare global {
     }
 }
 
-export function createElement<T extends HTMLElement>(
-    elementName: string,
-    props?: Optional<T> & IAdditionalProps<T>,
+export function createElement<P extends keyof HTMLElementTagNameMap>(
+    elementName: P,
+    props?: Optional<HTMLElementTagNameMap[P]> & IAdditionalProps<HTMLElementTagNameMap[P]> & IndexSignature,
     ...children: Child[],
-): T & IAdditionalProps<T> {
-    const element = document.createElement(elementName) as T;
+): HTMLElementTagNameMap[P] & IAdditionalProps<HTMLElementTagNameMap[P]> {
+    const element = document.createElement(elementName) as HTMLElementTagNameMap[P] & IndexSignature;
 
     for (const child of children) {
         if (child instanceof HTMLElement) {
@@ -33,12 +35,18 @@ export function createElement<T extends HTMLElement>(
     }
     
     if (props != undefined) {
-        Object.assign(element, props);
+        for (const key of Object.keys(props)) {
+            if (element.hasOwnProperty(key)) {
+                element[key] = props[key];
+            } else {
+                element.setAttribute(key, props[key]);
+            }
+        }
 
         if (props.ref != undefined) {
             props.ref(element);
         }
     }
 
-    return element as T & IAdditionalProps<T>;
+    return element as HTMLElementTagNameMap[P] & IAdditionalProps<HTMLElementTagNameMap[P]>;
 }
